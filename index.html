@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Amperios/Ohmios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Calculadora de Amperios/Ohmios</h2>
+        <h2 class="text-center mb-4">Voltaje fijo de 5V</h2>\
+        <p class="text-center mb-4">Carvente Miguel Isai</p>
+        <div class="card">
+            <div class="card-body">
+                <form id="calcForm">
+                    <div class="mb-3">
+                        <label for="valor" class="form-label">Ingresa el valor:</label>
+                        <input type="number" class="form-control" id="valor" placeholder="Ingresa el valor" required step="any">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tipoValor" class="form-label">Selecciona el tipo de valor:</label>
+                        <select class="form-select" id="tipoValor" required>
+                            <option value="amperios">Amperios (I)</option>
+                            <option value="ohmios">Ohmios (R)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Calcular</button>
+                </form>
+                <div class="mt-4">
+                    <p id="resultado" class="text-center fs-5"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('calcForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const valor = parseFloat(document.getElementById('valor').value);
+            const tipoValor = document.getElementById('tipoValor').value;
+            const voltaje = 5;  // Voltaje fijo en 5V
+            let resultado = '';
+
+            if (isNaN(valor) || valor <= 0) {
+                resultado = "Por favor, ingresa un valor válido mayor que 0.";
+            } else {
+                if (tipoValor === 'amperios') {
+                    const corriente = voltaje / valor;
+                    resultado = `La corriente es de ${corriente} Amperios.`;
+                } else if (tipoValor === 'ohmios') {
+                    const resistencia = voltaje / valor;
+                    resultado = `La resistencia es de ${resistencia} Ohms.`;
+                }
+            }
+
+            document.getElementById('resultado').textContent = resultado;
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
